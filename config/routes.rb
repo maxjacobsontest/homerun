@@ -1,4 +1,6 @@
 Homerun::Application.routes.draw do
+  resources :courses
+
   resources :categories
 
   resources :tasks
