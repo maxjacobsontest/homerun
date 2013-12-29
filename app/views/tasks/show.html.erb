@@ -12,12 +12,12 @@
 
 <p>
   <strong>Course:</strong>
-  <%= @task.course %>
+  <%= @task.course.name %>
 </p>
 
 <p>
   <strong>Category:</strong>
-  <%= @task.category %>
+  <%= @task.category.name %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

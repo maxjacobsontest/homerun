@@ -18,8 +18,8 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= task.points %></td>
-        <td><%= task.course %></td>
-        <td><%= task.category %></td>
+        <td><%= task.course.name %></td>
+        <td><%= task.category.name %></td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
