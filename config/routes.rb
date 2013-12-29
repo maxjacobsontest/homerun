@@ -1,4 +1,6 @@
 Homerun::Application.routes.draw do
+  resources :categories
+
   resources :tasks
 
   # The priority is based upon order of creation: first created -> highest priority.
