@@ -1,12 +1,19 @@
 <h1>Listing tasks</h1>
 
-<h2>Total Points: <%= Task.remaining_points %></h2>
+<h2>Total Points: <%= @tasks.points_total %></h2>
+<h2>Completed Points: <%= @tasks.completed.points_total %></h2>
+<h2>Remaining Points: <%= @tasks.remaining.points_total %></h2>
+
+<% if @tasks.all_completed? %>
+  <h2>WOOHOO</h2>
+<% end %>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Points</th>
+      <th>Completed?</th>
       <th>Course</th>
       <th>Category</th>
       <th></th>
@@ -20,6 +27,7 @@
       <tr>
         <td><%= task.name %></td>
         <td><%= task.points %></td>
+        <td><%= task.complete ? task.completed_on : "false" %></td>
         <td><%= task.course.name %></td>
         <td><%= task.category.name %></td>
         <td><%= link_to 'Show', task %></td>
@@ -33,3 +41,6 @@
 <br>
 
 <%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Course', new_course_path %>
+<%= link_to 'New Category', new_category_path %>
+

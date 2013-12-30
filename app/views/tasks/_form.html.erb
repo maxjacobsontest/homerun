@@ -20,6 +20,10 @@
     <%= f.number_field :points %>
   </div>
   <div class="field">
+    <%= f.label :complete %><br>
+    <%= f.check_box :complete %>
+  </div>
+  <div class="field">
     <%= f.label :course %><br>
     <%= f.select :course_id, Course.all.map { |c| [c.name, c.id]} %>
   </div>
