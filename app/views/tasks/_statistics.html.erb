@@ -1,0 +1,27 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1 class="panel-title">Statistics</h1>
+  </div>
+  <div class="panel-body">
+    <p>
+      Completed <%= pluralize Task.completed.points_total, "point" %>.
+      <%= pluralize Task.remaining.points_total, "point" %> remaining.
+    </p>
+    <p>
+      <% if Task.any_completed? %>
+        It's been <%= time_ago_in_words Task.last_completed.completed_on %> since you've completed a task.
+      <% else %>
+        You haven't completed any tasks. Get to work!
+      <% end %>
+    </p>
+    <p>
+    You should earn at least <%= Task.points_per_day %> points per day. So far today you've earned <%= Task.points_today %> points. Keep it up!
+    </p>
+    <p>
+      <div class="progress progress-striped active">
+        <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="<%= @percent_complete %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @percent_complete %>%">
+        </div>
+      </div>
+    </p>
+  </div>
+</div>

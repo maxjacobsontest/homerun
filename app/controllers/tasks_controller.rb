@@ -4,8 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @open_tasks = Task.search(params).remaining.by_updated_at
+    @remaining_tasks = Task.search(params).remaining.by_updated_at
     @completed_tasks = Task.search(params).completed.by_completed_at
+    @percent_complete = @completed_tasks.count / (@completed_tasks.count + @remaining_tasks.count).to_f * 100
   end
 
   # GET /tasks/1

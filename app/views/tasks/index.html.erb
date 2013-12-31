@@ -4,19 +4,7 @@
   <%= link_to 'New Category', new_category_path, :class => "btn btn-primary"%>
 </div>
 
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h1 class="panel-title">Statistics</h1>
-  </div>
-  <div class="panel-body">
-    <p>
-      Completed <%= pluralize Task.completed.points_total, "point" %>.
-      <%= pluralize Task.remaining.points_total, "point" %> remaining.
-    </p>
-    <p>It's been x minutes since you've completed a task.</p>
-    <p>You should earn x points per today. So far today you've earned x points. Keep it up!</p>
-  </div>
-</div>
+<%= render "statistics" %>
 
 <h2>Listing tasks</h2>
 
@@ -29,7 +17,7 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane active" id="remaining">
-    <%= render partial: "table", locals: { tasks: @open_tasks } %>
+    <%= render partial: "table", locals: { tasks: @remaining_tasks } %>
   </div>
   <div class="tab-pane" id="completed">
     <%= render partial: "table", locals: { tasks: @completed_tasks } %>

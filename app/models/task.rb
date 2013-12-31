@@ -31,6 +31,14 @@ class Task < ActiveRecord::Base
     all.inject(0) { |sum, task| sum + task.points }
   end
 
+  def self.last_completed
+    Task.completed.by_completed_at.first
+  end
+
+  def self.any_completed?
+    all.any? { |t| t.complete == true }
+  end
+
   def self.all_completed?
     all.all? { |t| t.complete == true }
   end
@@ -39,12 +47,16 @@ class Task < ActiveRecord::Base
     ((Time.now - ULTIMATE_DUE_DATE) / 60 / 60 / 24).abs.floor
   end
 
+  def self.points_today
+    completed_today.points_total
+  end
+
   def self.points_per_day
     (remaining.points_total.to_f / days_until_due_date).floor
   end
 
   def self.good_day?
-    completed_today.points_total >= points_per_day
+    points_today >= points_per_day
   end
 
   def complete=(val)
