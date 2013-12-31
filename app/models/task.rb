@@ -1,5 +1,7 @@
 class Task < ActiveRecord::Base
 
+  ULTIMATE_DUE_DATE = Chronic.parse "May 1 2014"
+
   belongs_to :course
   belongs_to :category
 
@@ -7,9 +9,15 @@ class Task < ActiveRecord::Base
 
   scope :completed, -> { where(complete: true) }
   scope :remaining, -> { where(complete: false) }
+  scope :completed_today, -> { where(completed_on: Time.now.beginning_of_day..Time.now.end_of_day) }
+  scope :by_completed_at, -> { order(completed_on: :desc) }
+  scope :by_updated_at, -> { order(updated_at: :desc) }
 
   def self.search(params)
     response = Task.all
+    if params[:id]
+      return Task.where(:id => params[:id])
+    end
     if params[:course]
       response = response.joins(:course).where(:courses => { :name => params[:course] })
     end
@@ -27,8 +35,20 @@ class Task < ActiveRecord::Base
     all.all? { |t| t.complete == true }
   end
 
+  def self.days_until_due_date
+    ((Time.now - ULTIMATE_DUE_DATE) / 60 / 60 / 24).abs.floor
+  end
+
+  def self.points_per_day
+    (remaining.points_total.to_f / days_until_due_date).floor
+  end
+
+  def self.good_day?
+    completed_today.points_total >= points_per_day
+  end
+
   def complete=(val)
-    if val == "1"
+    if [true, "1"].include? val
       self.completed_on = Time.now
     else
       self.completed_on = nil

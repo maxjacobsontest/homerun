@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.search(params)
+    @open_tasks = Task.search(params).remaining.by_updated_at
+    @completed_tasks = Task.search(params).completed.by_completed_at
   end
 
   # GET /tasks/1
@@ -49,6 +50,11 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def complete
+    @task.complete!
+    redirect_to root_path
   end
 
   # DELETE /tasks/1

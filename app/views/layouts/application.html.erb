@@ -8,11 +8,19 @@
 </head>
 <body>
 
-  <h1>
-    <%= link_to "Homerun", root_path %>
-  </h1>
+  <div class="container">
 
-<%= yield %>
+    <div class="page-header">
+      <h1>
+        <%= link_to "Homerun", root_path %>
+        <small>
+          You're a star!
+        </small>
+      </h1>
+    </div>
+
+    <%= yield %>
+  </div>
 
 </body>
 </html>

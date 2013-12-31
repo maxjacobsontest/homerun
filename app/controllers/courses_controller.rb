@@ -1,16 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-
-  # GET /courses
-  # GET /courses.json
-  def index
-    @courses = Course.all
-  end
-
-  # GET /courses/1
-  # GET /courses/1.json
-  def show
-  end
+  before_action :set_course, only: [:edit, :update, :destroy]
 
   # GET /courses/new
   def new
@@ -28,7 +17,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Course was successfully created.' }
         format.json { render action: 'show', status: :created, location: @course }
       else
         format.html { render action: 'new' }
@@ -42,7 +31,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -56,7 +45,7 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

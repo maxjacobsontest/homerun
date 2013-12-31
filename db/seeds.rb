@@ -23,3 +23,12 @@ categories.each do |cat_name|
   category = Category.where(name: cat_name).first || Category.create(name: cat_name)
 end
 
+120.times do
+  t = Task.new
+  t.course = Course.all.sample
+  t.category = Category.all.sample
+  t.name = Faker::Lorem.sentence
+  t.points = rand(10)
+  t.save!
+end
+

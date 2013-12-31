@@ -1,9 +1,11 @@
 Homerun::Application.routes.draw do
-  resources :courses
-
-  resources :categories
-
-  resources :tasks
+  resources :courses, :except => [:index, :show]
+  resources :categories, :except => [:index, :show]
+  resources :tasks do
+    member do
+      patch 'complete'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
