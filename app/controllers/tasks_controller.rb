@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
+  before_action :set_task, only: [:edit, :update, :destroy, :complete]
 
   # GET /tasks
   # GET /tasks.json
@@ -7,11 +7,6 @@ class TasksController < ApplicationController
     @remaining_tasks = Task.search(params).remaining.by_updated_at
     @completed_tasks = Task.search(params).completed.by_completed_at
     @percent_complete = @completed_tasks.count / (@completed_tasks.count + @remaining_tasks.count).to_f * 100
-  end
-
-  # GET /tasks/1
-  # GET /tasks/1.json
-  def show
   end
 
   # GET /tasks/new
@@ -27,45 +22,33 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @task }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.save
+      redirect_to root_path, notice: 'Task was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    if @task.update(task_params)
+      redirect_to root_path, notice: 'Task was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def complete
     @task.complete!
-    redirect_to root_path
+    redirect_to root_path, notice: 'Great job!'
   end
 
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url }
-      format.json { head :no_content }
-    end
+    redirect_to root_path, notice: 'Task was successfully deleted'
   end
 
   private

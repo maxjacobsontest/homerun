@@ -15,7 +15,7 @@
     <% tasks.each do |task| %>
       <tr>
         <td>
-          <%= link_to task.name, task %>
+          <%= task.name %>
         </td>
         <td><%= task.points %></td>
         <td><%= task.course.name %></td>
