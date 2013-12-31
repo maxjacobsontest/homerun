@@ -12,6 +12,8 @@ class Task < ActiveRecord::Base
   scope :completed_today, -> { where(completed_on: Time.now.beginning_of_day..Time.now.end_of_day) }
   scope :by_completed_at, -> { order(completed_on: :desc) }
   scope :by_updated_at, -> { order(updated_at: :desc) }
+  scope :by_point_value, -> { order(points: :desc) }
+  scope :by_point_value_asc, -> { order(:points) }
 
   def self.search(params)
     response = Task.all
@@ -23,6 +25,14 @@ class Task < ActiveRecord::Base
     end
     if params[:category]
       response = response.joins(:category).where(:categories => { :name => params[:category] })
+    end
+    if params[:sort]
+      case params[:sort]
+      when "by_point_value"
+        response = response.by_point_value
+      when "-by_point_value"
+        response = response.by_point_value_asc
+      end
     end
     response
   end
