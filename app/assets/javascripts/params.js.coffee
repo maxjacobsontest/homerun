@@ -5,11 +5,11 @@ window.get_params = ->
     key = kvp[0]
     value = kvp[1]
     params[key] = value
-  console.log "Initial params:"
-  console.log params
   params
 
 window.set_params = (params) ->
-  str = "?" + Object.keys(params).map((key) -> "#{key}=#{params[key]}").join("&")
+  kvps = []
+  $.each params, (key, value) -> kvps.push [key, value].join("=") unless key is ""
+  str = if kvps.length > 0 then "?" + kvps.join("&") else ""
   window.location.search = str
 

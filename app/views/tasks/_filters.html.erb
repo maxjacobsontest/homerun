@@ -1,6 +1,6 @@
-<% if params[:points] or params[:category] or params[:course] or params[:sort] %>
-  <div class="well">
-    <h3>Filters and Sorts</h3>
+<div class="well">
+  <h3>Filters and Sorts</h3>
+  <% if params[:points] or params[:category] or params[:course] %>
     <p>Only showing tasks that meet these conditions:</p>
     <ul>
       <% if params[:points] %>
@@ -22,16 +22,19 @@
         </li>
       <% end %>
     </ul>
-    <% if params[:sort] %>
-      <p>
-        Tasks are sorted by <strong><%= params[:sort] %></strong>
-        <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="sort"></span>
-      </p>
-    <% end %>
     <p>Filtered complete: <%= @percent_complete.round(2) %>%</p>
     <div class="progress progress-striped active">
-      <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="<%= @percent_complete %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @percent_complete %>%">
-      </div>
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= @percent_complete %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @percent_complete %>%"></div>
     </div>
-  </div>
-<% end %>
+  <% else %>
+    <p><strong>If you want to filter</strong>, click on point values, category names, or course names to filter your tasks down to the ones you're interested in right now.</p>
+  <% end %>
+  <% if params[:sort] %>
+    <p>
+      Tasks are sorted by <strong><%= params[:sort] %></strong>
+      <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="sort"></span>
+    </p>
+  <% else %>
+    <p>Tasks are sorted by most recently updated by default.</p>
+  <% end %>
+</div>

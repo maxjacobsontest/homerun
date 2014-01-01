@@ -6,8 +6,8 @@ class TasksController < ApplicationController
   def index
     @remaining_tasks = Task.search(params).remaining.by_updated_at
     @completed_tasks = Task.search(params).completed.by_completed_at
-    @percent_complete = @completed_tasks.count / (@completed_tasks.count + @remaining_tasks.count).to_f * 100
-    @total_percent_complete = Task.completed.count / Task.all.count.to_f * 100
+    @percent_complete = @completed_tasks.count.to_f / (@completed_tasks.count + @remaining_tasks.count).to_f * 100
+    @total_percent_complete = Task.completed.count.to_f / Task.all.count.to_f * 100
   end
 
   # GET /tasks/new

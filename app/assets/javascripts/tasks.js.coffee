@@ -16,9 +16,8 @@ $ ->
   $("td.points, td.course, td.category").click ->
     filter_by_key = $(this).attr('class')
     filter_by_value = $(this).text()
-    if params[filter_by_key] isnt filter_by_value
-      params[filter_by_key] = filter_by_value
-      set_params(params)
+    params[filter_by_key] = filter_by_value
+    set_params(params)
 
   $(".clear-param").click ->
     param_to_clear = $(this).data('clear')
