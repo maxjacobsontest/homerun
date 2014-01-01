@@ -1,0 +1,37 @@
+<% if params[:points] or params[:category] or params[:course] or params[:sort] %>
+  <div class="well">
+    <h3>Filters and Sorts</h3>
+    <p>Only showing tasks that meet these conditions:</p>
+    <ul>
+      <% if params[:points] %>
+        <li>
+          Worth <strong><%= pluralize params[:points], "point" %></strong>
+          <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="points"></span>
+        </li>
+      <% end %>
+      <% if params[:category] %>
+        <li>
+          Categorized as <strong><%= params[:category].indefinitize %></strong>
+          <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="category"></span>
+        </li>
+      <% end %>
+      <% if params[:course] %>
+        <li>
+          For <strong><%= params[:course] %></strong>
+          <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="course"></span>
+        </li>
+      <% end %>
+    </ul>
+    <% if params[:sort] %>
+      <p>
+        Tasks are sorted by <strong><%= params[:sort] %></strong>
+        <span class="clear-param glyphicon glyphicon-remove-circle" data-clear="sort"></span>
+      </p>
+    <% end %>
+    <p>Filtered complete: <%= @percent_complete.round(2) %>%</p>
+    <div class="progress progress-striped active">
+      <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="<%= @percent_complete %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @percent_complete %>%">
+      </div>
+    </div>
+  </div>
+<% end %>
