@@ -12,7 +12,10 @@ $ ->
   $("td.points, td.course, td.category").click ->
     filter_by_key = $(this).attr('class')
     filter_by_value = $(this).text()
-    params[filter_by_key] = filter_by_value
+    if params[filter_by_key] is filter_by_value.replace(" ", "%20")
+      delete params[filter_by_key]
+    else
+      params[filter_by_key] = filter_by_value
     set_params(params)
 
   $(".clear-param").click ->
