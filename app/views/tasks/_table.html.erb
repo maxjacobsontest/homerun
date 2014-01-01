@@ -1,38 +1,49 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th title="Click to sort by name">Name</th>
-      <th title="Click to sort by points">Points</th>
-      <th title="Click to sort by course">Course</th>
-      <th title="Click to sort by category">Category</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% tasks.each do |task| %>
+<% if tasks.empty? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title">None!</h1>
+    </div>
+    <div class="panel-body">
+      <p>There are no tasks to be found here!</p>
+    </div>
+  </div>
+<% else %>
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td class="name">
-          <%= task.name %>
-        </td>
-        <td class="points" title="Click to filter/unfilter by tasks with <%= pluralize task.points, "point" %>"><%= task.points %></td>
-        <td class="course" title="Click to filter/unfilter by <%= task.course.name %> tasks"><%= task.course.name %></td>
-        <td class="category" title="Click to filter/unfilter by <%= task.category.name %> tasks" ><%= task.category.name %></td>
-        <td>
-          <% if task.complete? %>
-            completed <%= time_ago_in_words task.completed_on %> ago
-          <% else %>
-            <%= link_to(complete_task_path(task), method: :patch, data: { confirm: 'Are you sure? Great job!' }, class: "btn btn-success", title: "Mark this task complete") do %>
-              <span class="glyphicon glyphicon-ok"></span>
-            <% end %>
-          <% end %>
-          <%= link_to edit_task_path(task), class: "btn btn-warning", title: "Edit this task's details" do %>
-            <span class="glyphicon glyphicon-pencil"></span>
-          <% end %>
-          <%= link_to task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete this task if necessary" do %>
-            <span class="glyphicon glyphicon-remove"></span>
-          <% end %>
-        </td>
+        <th title="Click to sort by name">Name</th>
+        <th title="Click to sort by points">Points</th>
+        <th title="Click to sort by course">Course</th>
+        <th title="Click to sort by category">Category</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% tasks.each do |task| %>
+        <tr>
+          <td class="name">
+            <%= task.name %>
+          </td>
+          <td class="points" title="Click to filter/unfilter by tasks with <%= pluralize task.points, "point" %>"><%= task.points %></td>
+          <td class="course" title="Click to filter/unfilter by <%= task.course.name %> tasks"><%= task.course.name %></td>
+          <td class="category" title="Click to filter/unfilter by <%= task.category.name %> tasks" ><%= task.category.name %></td>
+          <td>
+            <% if task.complete? %>
+              completed <%= time_ago_in_words task.completed_on %> ago
+            <% else %>
+              <%= link_to(complete_task_path(task), method: :patch, data: { confirm: 'Are you sure? Great job!' }, class: "btn btn-success", title: "Mark this task complete") do %>
+                <span class="glyphicon glyphicon-ok"></span>
+              <% end %>
+            <% end %>
+            <%= link_to edit_task_path(task), class: "btn btn-warning", title: "Edit this task's details" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
+            <% end %>
+            <%= link_to task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete this task if necessary" do %>
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
