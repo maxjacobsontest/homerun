@@ -49,3 +49,4 @@ gem 'faker'
 gem 'chronic'
 gem 'rails_12factor', group: :production
 gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'rack-mini-profiler'
