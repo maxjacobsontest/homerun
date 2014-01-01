@@ -36,7 +36,7 @@ class Task < ActiveRecord::Base
         response = response.joins(:course).order("courses.name #{direction}")
       when "category"
         response = response.joins(:category).order("categories.name #{direction}")
-      else
+      when "name", "points"
         response = response.order(sorter => direction)
       end
     end
