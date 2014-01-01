@@ -52,11 +52,11 @@ class Task < ActiveRecord::Base
   end
 
   def self.any_completed?
-    all.any? { |t| t.complete == true }
+    all.where(complete: true).count > 0
   end
 
   def self.all_completed?
-    all.all? { |t| t.complete == true }
+    all.where(complete: true).count == all.count
   end
 
   def self.days_until_due_date
