@@ -16,7 +16,9 @@ categories = [
   "Essay",
   "Quiz",
   "Test",
-  "Assignment"
+  "Assignment",
+  "Speaking",
+  "Discussion"
 ]
 
 categories.each do |cat_name|

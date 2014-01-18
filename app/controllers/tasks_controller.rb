@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    # TODO why do we have this last sorting method appended?
+    # don't we mean to override that with params?
+    # how is it working?
     @remaining_tasks = Task.search(params).remaining.by_updated_at
     @completed_tasks = Task.search(params).completed.by_completed_at
     @percent_complete = @completed_tasks.points_total.to_f / (@completed_tasks.points_total + @remaining_tasks.points_total).to_f * 100

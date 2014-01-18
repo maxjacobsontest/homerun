@@ -8,7 +8,9 @@ module ApplicationHelper
       "You're on a roll!",
       "Hey, Einstein!",
       "Way to go!",
-      "NYU, here you come!"
+      "NYU, here you come!",
+      "ты звезда",
+      "Университет это весело"
     ].sample
   end
 end
