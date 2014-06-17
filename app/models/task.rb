@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
 
-  ULTIMATE_DUE_DATE = Chronic.parse "March 1 2014"
+  ULTIMATE_DUE_DATE = Chronic.parse "June 21, 2014"
 
   belongs_to :course
   belongs_to :category
