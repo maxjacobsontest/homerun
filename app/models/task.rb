@@ -68,7 +68,7 @@ class Task < ActiveRecord::Base
   end
 
   def self.points_per_day
-    (remaining.points_total.to_f / days_until_due_date).floor
+    (remaining.points_total.to_f / days_until_due_date)
   end
 
   def self.good_day?
@@ -85,13 +85,11 @@ class Task < ActiveRecord::Base
   end
 
   def complete!
-    self.complete = true
-    self.save
+    self.update(complete: true)
   end
 
   def uncomplete!
-    self.complete = false
-    self.save
+    self.update(complete: false)
   end
 
 end
