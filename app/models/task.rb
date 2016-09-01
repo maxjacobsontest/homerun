@@ -20,15 +20,15 @@ class Task < ActiveRecord::Base
     if params[:id]
       return Task.where(:id => params[:id])
     end
-    if params[:course]
-      response = response.joins(:course).where(:courses => { :name => params[:course] })
-    end
-    if params[:category]
-      response = response.joins(:category).where(:categories => { :name => params[:category] })
-    end
-    if params[:points]
-      response = response.where(:points => params[:points])
-    end
+    response = if params[:course]
+                 response.joins(:course).where(:courses => { :name => params[:course] })
+               end
+    response = if params[:category]
+                 response.joins(:category).where(:categories => { :name => params[:category] })
+               end
+    response = if params[:points]
+                 response.where(:points => params[:points])
+               end
     if params[:sort]
       direction, sorter = params[:sort][0] == "-" ? [:desc, params[:sort][1..-1]] : [:asc, params[:sort]]
       case sorter
