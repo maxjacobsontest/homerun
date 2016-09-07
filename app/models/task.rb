@@ -88,8 +88,4 @@ class Task < ActiveRecord::Base
     self.update(complete: true)
   end
 
-  def uncomplete!
-    self.update(complete: false)
-  end
-
 end
