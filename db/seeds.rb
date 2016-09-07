@@ -1,7 +1,6 @@
 courses = [
   "English 3",
   "English 4",
-  "Fine Art",
   "Environmental Science",
   "French 3",
   "American Government/Civics",
